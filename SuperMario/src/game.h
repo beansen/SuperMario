@@ -1,5 +1,9 @@
 #pragma once
+#include "header.h"
+#include "FrameCounter.h"
 
-bool initGame();
-void gameloop();
-void destroyGame();
+bool init();
+void gameLoop();
+void destroy();
+
+CFrameCounter* getFrameCounter();

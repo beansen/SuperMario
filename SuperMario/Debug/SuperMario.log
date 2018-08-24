@@ -1,2 +1,5 @@
-﻿  window.cpp
+﻿  Game.cpp
+c:\users\benjamin\documents\projects\supermario\supermario\src\game.cpp(69): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'double'
+  main.cpp
+  Generating Code...
   SuperMario.vcxproj -> C:\Users\Benjamin\Documents\Projects\SuperMario\Debug\SuperMario.exe

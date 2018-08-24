@@ -19,13 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\game.cpp" />
+    <ClCompile Include="src\FrameCounter.cpp" />
+    <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\game.h" />
-    <ClInclude Include="src\window.h" />
+    <ClInclude Include="src\FrameCounter.h" />
+    <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\header.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
