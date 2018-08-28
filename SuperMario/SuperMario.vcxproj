@@ -19,14 +19,27 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\FrameCounter.cpp" />
+    <ClCompile Include="src\Background.cpp" />
+    <ClCompile Include="src\Core.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\InputHandler.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\FrameCounter.h" />
+    <ClInclude Include="src\Background.h" />
+    <ClInclude Include="src\Core.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\header.h" />
+    <ClInclude Include="src\InputHandler.h" />
+    <ClInclude Include="src\Time.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="images\backgrounds.png" />
+    <Image Include="images\enemies.png" />
+    <Image Include="images\mario.png" />
+    <Image Include="images\pipes.png" />
+    <Image Include="images\tiles-ground.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

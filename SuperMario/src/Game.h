@@ -1,9 +1,14 @@
-#pragma once
 #include "header.h"
-#include "FrameCounter.h"
+#include <list>
 
-bool init();
-void gameLoop();
-void destroy();
+class CGame
+{
+public:
+	CGame();
+	~CGame();
+	void update(SDL_Renderer* renderer, std::list<Action>* actions);
+	void init(SDL_Renderer* renderer);
 
-CFrameCounter* getFrameCounter();
+private:
+
+};

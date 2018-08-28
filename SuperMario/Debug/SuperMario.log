@@ -1,5 +1,6 @@
-﻿  Game.cpp
-c:\users\benjamin\documents\projects\supermario\supermario\src\game.cpp(69): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'double'
-  main.cpp
+﻿  Background.cpp
+c:\users\benjamin\documents\projects\supermario\supermario\src\background.cpp(58): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\benjamin\documents\projects\supermario\supermario\src\background.cpp(61): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Game.cpp
   Generating Code...
   SuperMario.vcxproj -> C:\Users\Benjamin\Documents\Projects\SuperMario\Debug\SuperMario.exe
