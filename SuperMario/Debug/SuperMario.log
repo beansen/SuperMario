@@ -1,6 +1,6 @@
-﻿  Background.cpp
-c:\users\benjamin\documents\projects\supermario\supermario\src\background.cpp(58): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\benjamin\documents\projects\supermario\supermario\src\background.cpp(61): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  Game.cpp
-  Generating Code...
+﻿  Player.cpp
+c:\users\benjamin\documents\projects\supermario\supermario\src\player.cpp(54): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\benjamin\documents\projects\supermario\supermario\src\player.cpp(71): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\benjamin\documents\projects\supermario\supermario\src\player.cpp(74): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\benjamin\documents\projects\supermario\supermario\src\player.cpp(100): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   SuperMario.vcxproj -> C:\Users\Benjamin\Documents\Projects\SuperMario\Debug\SuperMario.exe

@@ -11,7 +11,10 @@ public:
 	void render(SDL_Renderer* renderer);
 
 private:
-	float pos;
+	float offset;
+	bool needsSecondCopy;
 	SDL_Texture* bgTexture;
-	SDL_Rect renderQuad = { 2, 600, 320, 240 };
+	SDL_Rect srcRect[2];
+	SDL_Rect dstRect[2];
+	int startPos[2];
 };

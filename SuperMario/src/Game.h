@@ -1,5 +1,6 @@
 #include "header.h"
 #include <list>
+#include "Player.h"
 
 class CGame
 {
@@ -12,3 +13,5 @@ public:
 private:
 
 };
+
+CPlayer* getPlayer();

@@ -1,10 +1,22 @@
 #include "Background.h"
 #include "Core.h"
+#include "Game.h"
 
+bool canScroll = false;
 
 CBackground::CBackground(void) {
-	pos = 2;
+	offset = 2;
+	needsSecondCopy = false;
 	bgTexture = NULL;
+
+	srcRect[0] = {2, 604, 256, 270};
+	srcRect[1] = {258, 604, 256, 270};
+	
+	dstRect[0] = {0, 0, 720, 540};
+	dstRect[1] = {720, 0, 720, 540};
+
+	startPos[0] = 0;
+	startPos[1] = 720;
 }
 
 CBackground::~CBackground(void) {
@@ -15,9 +27,6 @@ CBackground::~CBackground(void) {
 }
 
 void CBackground::loadFile(SDL_Renderer* renderer) {
-	//The final texture
-	SDL_Texture* newTexture = NULL;
-
 	//Load image at specified path
 	SDL_Surface* loadedSurface = IMG_Load("images/backgrounds.png");
 	if (loadedSurface == NULL)
@@ -31,7 +40,7 @@ void CBackground::loadFile(SDL_Renderer* renderer) {
 
 		//Create texture from surface pixels
 		bgTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-		if (newTexture == NULL)
+		if (bgTexture == NULL)
 		{
 			printf("Unable to create background texture! SDL Error: %s\n", SDL_GetError());
 		}
@@ -42,25 +51,33 @@ void CBackground::loadFile(SDL_Renderer* renderer) {
 }
 
 void CBackground::update(Action action) {
-	if (action == RIGHT) {
-		pos += getTime()->getDeltaTime() * 20;
-	}
+	if (canScroll) {
+		if (action == RIGHT) { 
+			offset += getTime()->getDeltaTime() * 100;
+			for (int i = 0; i < 2; i++)
+			{
+				dstRect[i].x = startPos[i] - offset;
 
-	if (action == LEFT) {
-		pos -= getTime()->getDeltaTime() * 20;
-	}
+				if (dstRect[i].x < -dstRect[i].w) {
+					dstRect[i].x = dstRect[i].w;
+				}
+			}
 
-	if (pos > 512 - renderQuad.w) {
-		pos = 2;
+			if (offset >= 720) {
+				startPos[0] = startPos[0] == 0 ? 720 : 0;
+				startPos[1] = startPos[1] == 0 ? 720 : 0;
+				offset = 0;
+			}
+		}
 	}
-
-	if (pos < 2) {
-		pos = 512 - renderQuad.w;
-	}
-
-	renderQuad.x = pos;
 }
 
 void CBackground::render(SDL_Renderer* renderer) {
-	SDL_RenderCopy(renderer, bgTexture, &renderQuad, NULL);
+	SDL_Rect playerPos = getPlayer()->getPosition();
+
+	canScroll = playerPos.x >= 360 - playerPos.w / 2;
+	
+	for (int i = 0; i < 2; i++) {
+		SDL_RenderCopy(renderer, bgTexture, &srcRect[i], &dstRect[i]);
+	}
 }
