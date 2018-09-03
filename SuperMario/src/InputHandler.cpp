@@ -7,7 +7,7 @@ std::list<Action>* CInputHandler::getActions() {
 	if (currentKeyStates[SDL_SCANCODE_UP]) {
 		actions.push_back(UP);
 	}
-	if (currentKeyStates[SDL_SCANCODE_RIGHT]) {
+	if (currentKeyStates[SDL_SCANCODE_RIGHT]) { 
 		actions.push_back(RIGHT);
 	}
 	if (currentKeyStates[SDL_SCANCODE_LEFT]) {
@@ -21,6 +21,10 @@ std::list<Action>* CInputHandler::getActions() {
 	}
 	if (currentKeyStates[SDL_SCANCODE_D]) {
 		actions.push_back(FIRE);
+	}
+	if (actions.size() == 0)
+	{
+		actions.push_back(NONE);
 	}
 
 	return &actions;

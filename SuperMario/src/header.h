@@ -10,5 +10,6 @@ enum Action
 	LEFT,
 	RIGHT,
 	JUMP,
-	FIRE
+	FIRE,
+	NONE
 };

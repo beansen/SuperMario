@@ -8,12 +8,13 @@ int groundedPos = 0;
 CPlayer::CPlayer(void) {
 	runningSmall[0] = { 209, 0, 14, 20 };
 	runningSmall[1] = { 327, 0, 14, 20 };
-	playerRect = {0, 540 - 40 - 60, 42, 60};
+	jumpSmall = { 208, 39, 16, 22 };
+	playerRect = {0, 540 - 40 - 60, 40, 58};
 	horizontalOffset = 0;
 	verticalOffset = 0;
 	runningState = 0;
 	counter = 0;
-	grounded = true;
+	state = IDLE;
 }
 
 CPlayer::~CPlayer(void) {
@@ -48,6 +49,11 @@ void CPlayer::loadFile(SDL_Renderer* renderer) {
 }
 
 void CPlayer::update(Action action) {
+	if (action == NONE && isGrounded()) {
+		runningState = 0;
+		renderRect = &runningSmall[runningState];
+	}
+
 	if (action == LEFT) {
 		if (horizontalOffset > 0) {
 			horizontalOffset -= getTime()->getDeltaTime() * 100;
@@ -56,12 +62,18 @@ void CPlayer::update(Action action) {
 		else {
 			horizontalOffset = 0;
 		}
+
 		flip = SDL_FLIP_HORIZONTAL;
 
-		if (counter >= 0.3f && grounded) {
-			counter = 0;
-			runningState++;
-			runningState = runningState > 1 ? 0 : 1;
+		if (isGrounded()) {
+			state = RUNNING;
+
+			if (counter >= 0.3f) {
+				counter = 0;
+				runningState++;
+				runningState = runningState > 1 ? 0 : 1;
+				renderRect = &runningSmall[runningState];
+			}
 		}
 	}
 
@@ -76,39 +88,49 @@ void CPlayer::update(Action action) {
 
 		flip = SDL_FLIP_NONE;
 
-		if (counter >= 0.3f && grounded) {
-			counter = 0;
-			runningState++;
-			runningState = runningState > 1 ? 0 : 1;
+		if (isGrounded()) {
+			state = RUNNING;
+
+			if (counter >= 0.3f) {
+				counter = 0;
+				runningState++;
+				runningState = runningState > 1 ? 0 : 1;
+				renderRect = &runningSmall[runningState];
+			}
 		}
 	}
 
-	if (action == JUMP && grounded) {
-		grounded = false;
+	if (action == JUMP && isGrounded()) {
+		state = AIRBORNE;
 		groundedPos = playerRect.y;
 		verticalOffset = 0;
-		runningState = 1;
+		renderRect = &jumpSmall;
 	}
 }
 
 void CPlayer::render(SDL_Renderer* renderer) {
 	counter += getTime()->getDeltaTime();
 
-	if (!grounded) {
+	if (state == AIRBORNE) {
 		verticalOffset += getTime()->getDeltaTime() * 5;
 		float y = sin(verticalOffset);
 		playerRect.y = groundedPos - y * 100;
 
 		if (y <= 0) {
-			grounded = true;
+			state = IDLE;
 			playerRect.y = groundedPos;
 			runningState = 0;
 			counter = 0;
+			renderRect = &runningSmall[runningState];
 		}
 
 	}
 
-	SDL_RenderCopyEx(renderer, playerTexture, &runningSmall[runningState], &playerRect, 0, NULL, flip);
+	SDL_RenderCopyEx(renderer, playerTexture, renderRect, &playerRect, 0, NULL, flip);
+}
+
+bool CPlayer::isGrounded() {
+	return state != AIRBORNE;
 }
 
 SDL_Rect CPlayer::getPosition() {
