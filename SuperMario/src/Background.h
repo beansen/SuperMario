@@ -12,7 +12,6 @@ public:
 
 private:
 	float offset;
-	bool needsSecondCopy;
 	SDL_Texture* bgTexture;
 	SDL_Rect srcRect[2];
 	SDL_Rect dstRect[2];

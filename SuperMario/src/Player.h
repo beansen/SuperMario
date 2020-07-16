@@ -22,6 +22,7 @@ private:
 	float horizontalOffset;
 	float verticalOffset;
 	int runningState;
+	bool applyGravity;
 	SDL_Rect runningSmall[2];
 	SDL_Rect jumpSmall;
 	SDL_Rect* renderRect;

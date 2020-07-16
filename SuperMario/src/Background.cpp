@@ -6,7 +6,6 @@ bool canScroll = false;
 
 CBackground::CBackground(void) {
 	offset = 2;
-	needsSecondCopy = false;
 	bgTexture = NULL;
 
 	srcRect[0] = {2, 604, 256, 270};

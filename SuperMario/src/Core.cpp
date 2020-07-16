@@ -70,9 +70,8 @@ void gameLoop() {
 			}
 		}
 		std::list<Action>* actions = inputHandler->getActions();
-		game->update(renderer, actions);
-		//SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-		//SDL_RenderClear(renderer);
+		game->update(actions);
+		game->render(renderer);
 
 		//Update screen
 		SDL_RenderPresent(renderer);

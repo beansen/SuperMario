@@ -1,6 +1,6 @@
 #include <cmath>
-#include "Player.h"
 #include "Core.h"
+#include "Game.h"
 
 SDL_RendererFlip flip = SDL_FLIP_NONE;
 int groundedPos = 0;
@@ -9,12 +9,13 @@ CPlayer::CPlayer(void) {
 	runningSmall[0] = { 209, 0, 14, 20 };
 	runningSmall[1] = { 327, 0, 14, 20 };
 	jumpSmall = { 208, 39, 16, 22 };
-	playerRect = {0, 540 - 40 - 60, 40, 58};
+	playerRect = {0, 540 - 58 - 72, 40, 58};
 	horizontalOffset = 0;
 	verticalOffset = 0;
 	runningState = 0;
 	counter = 0;
 	state = IDLE;
+	applyGravity = true;
 }
 
 CPlayer::~CPlayer(void) {
@@ -105,6 +106,7 @@ void CPlayer::update(Action action) {
 		groundedPos = playerRect.y;
 		verticalOffset = 0;
 		renderRect = &jumpSmall;
+		applyGravity = false;
 	}
 }
 
@@ -114,16 +116,28 @@ void CPlayer::render(SDL_Renderer* renderer) {
 	if (state == AIRBORNE) {
 		verticalOffset += getTime()->getDeltaTime() * 5;
 		float y = sin(verticalOffset);
-		playerRect.y = groundedPos - y * 100;
 
-		if (y <= 0) {
+		if (y < 1) {
+			playerRect.y = groundedPos - y * 130;
+		} else {
+			applyGravity = true;
+		}
+
+	}
+
+	if (applyGravity) {
+		playerRect.y += getTime()->getDeltaTime() * 5;
+	}
+
+	int height = getMap()->getHeightAtPosition(playerRect.x) - 58;
+	if (playerRect.y > height) {
+		playerRect.y = height;
+		if (state == AIRBORNE) {
 			state = IDLE;
-			playerRect.y = groundedPos;
 			runningState = 0;
 			counter = 0;
 			renderRect = &runningSmall[runningState];
 		}
-
 	}
 
 	SDL_RenderCopyEx(renderer, playerTexture, renderRect, &playerRect, 0, NULL, flip);
